@@ -158,7 +158,12 @@ server.on('request',function(req,res){
 			liveTopologyTimer = setInterval(liveTopologyProcessing, appConfig.timeout);
 			log('live started');
 		}
-		res.writeHead(200, {'Access-Control-Allow-Origin': '*'});
+		res.writeHead(200,
+			{'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Methods': 'GET',
+			'Access-Control-Allow-Headers': 'Content-Type',
+			'Access-Control-Max-Age': '86400'
+			});
 		res.end(JSON.stringify({'command': 'start', 'result': 'ok'}));
 	}
 	// stop live network
@@ -168,18 +173,33 @@ server.on('request',function(req,res){
 			clearInterval(liveTopologyTimer);
 			log('live stopped');
 		}
-		res.writeHead(200,{'Access-Control-Allow-Origin': '*'});
+		res.writeHead(200,
+			{'Access-Control-Allow-Origin': '*',
+				'Access-Control-Allow-Methods': 'GET',
+				'Access-Control-Allow-Headers': 'Content-Type',
+				'Access-Control-Max-Age': '86400'
+			});
 		res.end(JSON.stringify({'command':'stop','result':'ok'}));
 	}
 	// display status
 	else if(req.url == '/status'){
-		res.writeHead(200,{'Access-Control-Allow-Origin': '*'});
+		res.writeHead(200,
+			{'Access-Control-Allow-Origin': '*',
+				'Access-Control-Allow-Methods': 'GET',
+				'Access-Control-Allow-Headers': 'Content-Type',
+				'Access-Control-Max-Age': '86400'
+			});
 		res.end(JSON.stringify({'command':'status','result':appConfig.live}));
 		log('live: ' + appConfig.live);
 	}
 	// default response: topology
 	else if(req.url == '/topology'){
-		res.writeHead(200,{'Access-Control-Allow-Origin': '*'});
+		res.writeHead(200,
+			{'Access-Control-Allow-Origin': '*',
+				'Access-Control-Allow-Methods': 'GET',
+				'Access-Control-Allow-Headers': 'Content-Type',
+				'Access-Control-Max-Age': '86400'
+			});
 		res.end(JSON.stringify(topologyData));
 		log('request for topology');
 	}
